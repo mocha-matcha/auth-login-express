@@ -21,6 +21,8 @@ Comment.init(
       },
     post_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      // foreignKey: true,
       references: {
         model: 'post',
         key: 'id',
@@ -28,6 +30,8 @@ Comment.init(
     },
     user_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+      // foreignKey: true,
       references: {
         model: 'user',
         key: 'id',
