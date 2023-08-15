@@ -1,11 +1,21 @@
 const router = require('express').Router();
-const { User } = require('../../models');
+const { User, Post } = require('../../models');
+
+router.get('/',async(req,res) =>{
+  try {
+      const postData = await User.findAll({include:[{model:Post},{model:Comment}]});
+      res.status(200).json(postData);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+
+});
 
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
     const dbUserData = await User.create({
-      username: req.body.username,
+      name: req.body.username,
       email: req.body.email,
       password: req.body.password,
     });
@@ -62,6 +72,7 @@ router.post('/login', async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 
 // Logout
 router.post('/logout', (req, res) => {

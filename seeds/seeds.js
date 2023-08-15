@@ -6,11 +6,9 @@ const seedComments = require('./commentData');
 const seedAll = async () => {
   await sequelize.sync({ force: true });
 
-
-  await seedComments();
   await seedUsers();
-
   await seedPosts();
+  await seedComments();
 
   process.exit(0);
 };

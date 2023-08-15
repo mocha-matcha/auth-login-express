@@ -3,7 +3,7 @@ const { User, Post,Comment } = require('../../models');
 
 router.get('/',async(req,res) =>{
     try {
-        const postData = await Product.findAll({include:[{model:User},{model:Comment}]});
+        const postData = await Comment.findAll({include:[{model:User},{model:Post}]});
         res.status(200).json(postData);
       } catch (err) {
         res.status(500).json(err);
@@ -15,9 +15,9 @@ router.get('/',async(req,res) =>{
 router.post('/', async (req, res) => {
   try {
     const dbPostData = await Post.create({
-      title: req.body.title,
-      content: req.body.content,
+      comment: req.body.comment,
       user_id: req.body.user_id,
+      post_id: req.body.post_id,
     });
 
     req.session.save(() => {
@@ -31,15 +31,6 @@ router.post('/', async (req, res) => {
 
 
 
-// Logout
-router.post('/logout', (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+
 
 module.exports = router;
