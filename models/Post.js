@@ -23,10 +23,12 @@ Post.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    can_comment: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-      allowNull: false,
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'id',
+      },
     },
   },
   {
