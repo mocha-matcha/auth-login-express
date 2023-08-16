@@ -13,7 +13,7 @@ router.get('/', withAuth, async (req, res) => {
       order: [['name', 'ASC']],
     });
     
-    const postData = await Post.findAll({include:[{model:User},{model:Comment}]});
+    const postData = await Post.findAll();
 
     const users = userData.map((project) => project.get({ plain: true }));
     const posts = postData.map((project) => project.get({ plain: true }));

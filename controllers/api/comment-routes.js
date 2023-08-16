@@ -3,7 +3,7 @@ const { User, Post,Comment } = require('../../models');
 
 router.get('/',async(req,res) =>{
     try {
-        const commentData = await Comment.findAll({include:[{model:User},{model:Post}]});
+        const commentData = await Comment.findAll({include:[{ all: true, nested: true }]});
         res.status(200).json(commentData);
       } catch (err) {
         res.status(500).json(err);
@@ -22,12 +22,11 @@ router.get('/:id',async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
-  // find one category by its `id` value
-  // be sure to include its associated Products
 });
 
 
-// CREATE new comment
+
+
 router.post('/', async (req, res) => {
   try {
     const dbCommentData = await Comment.create({

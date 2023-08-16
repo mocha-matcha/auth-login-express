@@ -3,17 +3,18 @@ const loginFormHandler = async (event) => {
     event.preventDefault();
   
     // Gather the data from the form elements on the page
-    const email = document.querySelector('#email-login').value.trim();
-    const password = document.querySelector('#password-login').value.trim();
+    const comment = document.querySelector('#comment-text').value.trim();
+    const post_id = document.querySelector('#post-id').value.trim();
+    const user_id = document.querySelector('#user-id').value.trim();
   
-    if (email && password) {
+    if (comment) {
       // Send the e-mail and password to the server
       // console.log(email);
       // console.log(password);
 
       const response = await fetch('/api/comments', {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ comment }),
         headers: { 'Content-Type': 'application/json' },
       });
   
@@ -26,6 +27,6 @@ const loginFormHandler = async (event) => {
   };
   
   document
-    .querySelector('.login-form')
-    .addEventListener('submit', loginFormHandler);
+    .querySelector('.comment-form')
+    .addEventListener('click', loginFormHandler);
   

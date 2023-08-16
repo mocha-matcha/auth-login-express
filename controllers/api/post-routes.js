@@ -3,7 +3,8 @@ const { User, Post,Comment } = require('../../models');
 
 router.get('/',async(req,res) =>{
     try {
-        const postData = await Post.findAll({include:[{model:User},{model:Comment}]});
+      //  const postData = await Post.findAll({include:[{ all: true, nested: true }]});
+       const postData = await Post.findAll({include:[{ all: true, nested: true }]});
         res.status(200).json(postData);
       } catch (err) {
         res.status(500).json(err);
