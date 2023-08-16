@@ -8,6 +8,7 @@ Post.init(
     // id: {
     //   type: DataTypes.INTEGER,
     //   allowNull: false,
+    //   defaultValue: 'nextval("Sensor_id_seq"::regclass)',
     //   primaryKey: true,
     //   autoIncrement: true,
     // },
@@ -34,6 +35,8 @@ Post.init(
   {
     sequelize,
     freezeTableName: true,
+    timestamps: false,
+
     underscored: true,
     modelName: 'posts',
   }

@@ -3,25 +3,41 @@ const { User, Post,Comment } = require('../../models');
 
 router.get('/',async(req,res) =>{
     try {
-        const postData = await Comment.findAll({include:[{model:User},{model:Post}]});
-        res.status(200).json(postData);
+        const commentData = await Comment.findAll({include:[{model:User},{model:Post}]});
+        res.status(200).json(commentData);
       } catch (err) {
         res.status(500).json(err);
       }
 
 });
 
-// CREATE new user
+router.get('/:id',async (req, res) => {
+  try {
+    const commentData = await Comment.findByPk(req.params.id);
+    if (!commentData) {
+      res.status(404).json({ message: 'No comment with this id!' });
+      return;
+    }
+    res.status(200).json(commentData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  // find one category by its `id` value
+  // be sure to include its associated Products
+});
+
+
+// CREATE new comment
 router.post('/', async (req, res) => {
   try {
-    const dbPostData = await Post.create({
+    const dbCommentData = await Comment.create({
       comment: req.body.comment,
       user_id: req.body.user_id,
       post_id: req.body.post_id,
     });
 
     req.session.save(() => {
-      res.status(200).json(dbUserData);
+      res.status(200).json(dbCommentData);
     });
   } catch (err) {
     console.log(err);
