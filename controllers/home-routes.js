@@ -12,11 +12,15 @@ router.get('/', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       order: [['name', 'ASC']],
     });
+    
+    const postData = await Post.findAll({include:[{model:User},{model:Comment}]});
 
     const users = userData.map((project) => project.get({ plain: true }));
+    const posts = postData.map((project) => project.get({ plain: true }));
+    const comments = postData.map((project) => project.get({ plain: true }));
 
     res.render('homepage', {
-      users,
+      posts,
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
     });

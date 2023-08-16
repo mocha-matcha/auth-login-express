@@ -1,4 +1,4 @@
-{{#each users as |user| }}
+{{!-- {{#each users as |user| }}
 <div class="row align-center mb-5">
   <div class="col-md-6">
     <h2>{{user.name}}</h2>
@@ -7,4 +7,32 @@
     <h3><a href="mailto:{{user.email}}">{{user.email}}</a></h3>
   </div>
 </div>
+{{/each}} --}}
+
+{{#each posts as |post| }}
+<div class="row align-center mb-5">
+  <div class="col-md-6">
+    <h2>{{post.title}}</h2>
+  </div>
+  <div class="col-md-6">
+    <p>{{post.content}}</p>
+
+    <h2>Comments:</h2>
+    <ul>
+    {{#each Comments as |comment|}}
+    <li>
+      <div>
+        {{comment.comment}}
+        {{comment.date_created}}
+      </div>
+    </li>
+
+  {{/each}}
+
+    </ul>
+
+    </div>
+</div>
+{{!-- comment box --}}
+
 {{/each}}
