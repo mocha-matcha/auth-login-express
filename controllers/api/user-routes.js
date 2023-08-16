@@ -3,8 +3,8 @@ const { User, Post } = require('../../models');
 
 router.get('/',async(req,res) =>{
   try {
-      const postData = await User.findAll();
-      res.status(200).json(postData);
+      const userData = await User.findAll();
+      res.status(200).json(userData);
     } catch (err) {
       res.status(500).json(err);
     }
@@ -34,11 +34,8 @@ router.post('/', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const dbUserData = await User.findOne({
-      where: {
-        email: req.body.email,
-      },
-    });
+    const dbUserData = await User.findOne({ where: { email: req.body.email } });
+
 
     if (!dbUserData) {
       res
