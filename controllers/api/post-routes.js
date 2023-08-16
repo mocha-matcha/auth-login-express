@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
     });
 
     req.session.save(() => {
-      res.status(200).json(dbUserData);
+      res.status(200).json(dbPostData);
     });
   } catch (err) {
     console.log(err);

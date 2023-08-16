@@ -4,7 +4,10 @@ const sequelize = require('../config/connection');
 
 class User extends Model {
   checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
+    console.log(loginPw);
+    console.log(this.password);
+    
+    return bcrypt.compareSync(loginPw.toString(), this.password);
   }
 }
 
@@ -32,7 +35,7 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        len: [8],
+        len: [20],
       },
     },
 
