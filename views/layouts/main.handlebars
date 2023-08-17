@@ -18,18 +18,30 @@
     <nav>
       <button class="btn" id="logout">logout</button>
     </nav>
+    <nav>
+      <button class="btn" id="posts">posts</button>
+    </nav>
+    <nav>
+      <button class="btn" id="newpost">newpost</button>
+    </nav>  
     {{/if}}
+  
   </header>
+
+
   <main class="container container-fluid mt-5">
     {{{ body }}}
   </main>
   <footer>
       
   </footer>
+  <script src="/js/header.js"></script>
 
   <!-- Only include the logout script if the user is logged in -->
   {{#if logged_in}}
   <script src="/js/logout.js"></script>
+
+
   {{/if}}
 </body>
 

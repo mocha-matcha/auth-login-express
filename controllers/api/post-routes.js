@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Post,Comment } = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.get('/',async(req,res) =>{
     try {
@@ -13,7 +14,7 @@ router.get('/',async(req,res) =>{
 });
 
 
-router.get('/:id',async (req, res) => {
+router.get('/:id',withAuth,async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id);
     if (!postData) {
@@ -28,12 +29,12 @@ router.get('/:id',async (req, res) => {
 
 
 // CREATE new post
-router.post('/', async (req, res) => {
+router.post('/',withAuth, async (req, res) => {
   try {
     const dbPostData = await Post.create({
       title: req.body.title,
       content: req.body.content,
-      user_id: req.body.user_id,
+      user_id: req.session.user_id,
     });
 
     req.session.save(() => {

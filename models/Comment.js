@@ -18,12 +18,12 @@ Comment.init(
     },
     date_created: {
         type: DataTypes.DATE,
-        allowNull: false,
+        // allowNull: false,
       },
       user_id:
       {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        // allowNull: false,
 
         references:{model:User,key:'id'}
       },
@@ -38,7 +38,7 @@ Comment.init(
   {
     sequelize,
     freezeTableName: true,
-    timestamps: false,
+    timestamps: true,
 
     underscored: true,
     // modelName: 'comments',

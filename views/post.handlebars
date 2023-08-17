@@ -1,0 +1,30 @@
+<h1>{{title}}</h1>
+<p>{{content}}</p>
+
+<h2>Comments:</h2>
+<ul>
+    {{#each post_comments as |comment|}}
+    <li>
+            {{comment.comment_user.name}}
+            {{comment.comment}}  
+    </li>
+    {{/each}}
+</ul>
+
+
+<form class="form comment-form">
+    <div class="form-group">
+        <label for="comment-text">comment:</label>
+        <input class="form-input" type="text" id="comment-text" />
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+    </div>
+</form>
+
+
+
+
+</ul>
+
+
+<script src="/js/post.js"></script>

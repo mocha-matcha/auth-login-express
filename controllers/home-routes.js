@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Post,Comment,User } = require('../models');
+const { Post, Comment, User } = require('../models');
 const withAuth = require('../utils/auth');
 
 
@@ -12,8 +12,8 @@ router.get('/', withAuth, async (req, res) => {
       attributes: { exclude: ['password'] },
       order: [['name', 'ASC']],
     });
-    
-    const postData = await Post.findAll();
+
+    const postData = await Post.findAll({ include: [{ all: true, nested: true }] });
 
     const users = userData.map((project) => project.get({ plain: true }));
     const posts = postData.map((project) => project.get({ plain: true }));
@@ -29,6 +29,37 @@ router.get('/', withAuth, async (req, res) => {
   }
 });
 
+router.get('/posts/:id', async (req, res) => {
+  try {
+    const postData = await Post.findByPk(req.params.id, { include: [{ all: true, nested: true }] });
+
+    const post = postData.get({ plain: true });
+
+    res.render('post', {
+      ...post,
+      logged_in: req.session.logged_in
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+// Login route
+router.get('/newpost',withAuth, async (req, res) => {
+
+  try {
+
+    res.render('newpost');
+  } catch (err) {
+    res.status(500).json(err);
+  }
+
+  if (req.session.loggedIn) {
+   res.render('newpost')
+    return;
+  }
+  res.render('login');
+});
 
 
 
@@ -39,6 +70,16 @@ router.get('/login', (req, res) => {
     return;
   }
   res.render('login');
+});
+
+// Logout
+router.post('/logout', (req, res) => {
+  if (req.session.loggedIn) {
+    res.render('login');
+
+  } else {
+    res.status(404).end();
+  }
 });
 
 module.exports = router;
